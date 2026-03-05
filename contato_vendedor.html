@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossa Equipe de Vendas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --primary: #183694;
+            --secondary: #ffb715;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+
+        .bg-primary { background-color: var(--primary); }
+        .text-primary { color: var(--primary); }
+        .bg-secondary { background-color: var(--secondary); }
+        .border-primary { border-color: var(--primary); }
+        
+        .seller-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        
+        .seller-card:hover {
+            transform: translateX(5px);
+            border-left-color: var(--secondary);
+            box-shadow: 0 10px 15px -3px rgba(24, 54, 148, 0.1);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--secondary);
+            color: var(--primary);
+            transition: all 0.2s;
+        }
+
+        .btn-whatsapp:hover {
+            filter: brightness(1.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4">
+
+    <!-- Header da Loja -->
+    <div class="w-full max-w-md text-center mb-10">
+        <div class="relative inline-block">
+            <img src="./Gemini_Generated_Image_yzds2oyzds2oyzds.png" 
+                 alt="Perfil da Loja" 
+                 class="w-28 h-28 rounded-full border-4 border-primary shadow-xl mx-auto mb-4 object-cover"
+                 onerror="this.src='https://ui-avatars.com/api/?name=Loja&background=183694&color=fff'">
+            <div class="absolute bottom-4 right-0 bg-secondary p-1.5 rounded-full border-2 border-white">
+                <i data-lucide="check-check" class="w-4 h-4 text-primary"></i>
+            </div>
+        </div>
+        <h1 class="text-3xl font-extrabold text-primary">Nossa Equipe</h1>
+        <p class="text-slate-600 mt-2 font-medium">Atendimento especializado via WhatsApp</p>
+        <div class="h-1 w-20 bg-secondary mx-auto mt-4 rounded-full"></div>
+    </div>
+
+    <!-- Lista de Vendedores -->
+    <div id="vendedores-container" class="w-full max-w-md space-y-4">
+        <!-- Inserido via JS -->
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="mt-16 text-slate-500 text-sm text-center pb-8">
+        <p class="font-bold text-primary">Faça seu orçamento!</p>
+        <p class="mt-1">© 2026 Salete Casa do Encanador.</p>
+    </footer>
+
+    <script>
+        // Dados atualizados dos vendedores
+        const vendedores = [
+            { nome: "Júnior", telefone: "5534998989951" },
+            { nome: "David", telefone: "5534992311355" },
+            { nome: "Leo Saraiva", telefone: "5534998392801" },
+            { nome: "Leandro", telefone: "5534998688072" },
+            { nome: "Luciano", telefone: "5534998897531" },
+            { nome: "Marco Antonio", telefone: "5534997648898" }
+        ];
+
+        function renderVendedores() {
+            const container = document.getElementById('vendedores-container');
+            
+            vendedores.forEach(vendedor => {
+                const msg = encodeURIComponent(`Olá ${vendedor.nome}, gostaria de fazer um orçamento!`);
+                const url = `https://wa.me/${vendedor.telefone}?text=${msg}`;
+                
+                const card = document.createElement('a');
+                card.href = url;
+                card.target = "_blank";
+                card.className = "seller-card flex items-center justify-between p-5 bg-white rounded-xl shadow-sm border border-slate-100 group";
+                
+                card.innerHTML = `
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center text-primary border border-slate-100">
+                            <i data-lucide="user" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-primary text-lg leading-tight">${vendedor.nome}</h3>
+                            <span class="text-xs text-slate-400 font-semibold uppercase tracking-widest">Vendedor Disponível</span>
+                        </div>
+                    </div>
+                    <div class="btn-whatsapp p-3 rounded-lg flex items-center justify-center shadow-sm">
+                        <i data-lucide="message-square" class="w-5 h-5"></i>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+            
+            lucide.createIcons();
+        }
+
+        window.onload = renderVendedores;
+    </script>
+</body>
+</html>
